@@ -1,5 +1,5 @@
 import streamlit as st
-import pickle
+import joblib
 import numpy as np
 import pandas as pd
 
@@ -364,10 +364,9 @@ div[data-testid="stSlider"] [data-testid="stThumbValue"] {
 @st.cache_resource
 def load_model():
     try:
-        with open("lgbm_best_model.pkl", "rb") as f:
-            return pickle.load(f), None
+        return joblib.load("lgbm_best_model.pkl"), None
     except FileNotFoundError:
-        return None, "⚠️ Model file **lgbm_best_model.pkl** not found. Place it in the same directory as app.py."
+        return None, "⚠️ Model file lgbm_best_model.pkl not found."
     except Exception as e:
         return None, f"⚠️ Error loading model: {e}"
 
